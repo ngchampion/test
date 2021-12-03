@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<code>
+# Cora Wagner, Coleman Doherty, Nathaniel Champion
+# Intro to Data Science Final
+
+# https://pythonguides.com/python-plot-multiple-lines/
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Read in a .csv file containing Fortnite statistics
+file = pd.read_csv('FortniteStatistics.csv')
+
+# Clean the data by creating a data frame that contains the specific data we want
+#       (Time, Sobriety, Placement, Eliminations, and Accuracy)
+data = {'Time': file['Time of Day'].tolist(), 'Sobriety': file['Mental State'].tolist(), 'Placement': file['Placed'].tolist(),
+        'Eliminations': file['Eliminations'].tolist(), 'Accuracy': file['Accuracy'].tolist()}
+df = pd.DataFrame(data, columns=['Time', 'Sobriety', 'Placement', 'Eliminations', 'Accuracy'])
+
+placement = soberDF['Placement'].tolist()
+time = soberDF['Time'].tolist()
+intTime = []
+for i in time:
+    s = i.split(":", 1)
+    r = int(s[0])
+    intTime.append(r)
+# Separates the data based on Sobriety in order to create 2 lines (sober and high) for each
+#       linear regression graph
+soberDF = df.loc[df.Sobriety == "sober"]
+highDF = df.loc[df.Sobriety == "high"]
+
+p = "Placement"
+e = "Eliminations"
+a = "Accuracy"
+
+plt.scatter(soberDF['Placement'], soberDF['intTime']) # sober: red
+plt.scatter(highDF['Placement'], highDF['intTime']) # high: blue
+
+
+    
+
+# Plot line of best fit
+x = np.array(placement)
+y = np.array(intTime)
+m, b = np.polyfit(x, y, 1)
+
+print(x)
+print(y)
+
+plt.yticks(np.arange(0, 12, 1))
+plt.plot(x, y, 'o')
+plt.plot(x, m*x + b)
+
+plt.show()
+
+
+# def graph(t_sober, t_high, y_sober, y_high, x_name):
+#     # Plot data points
+#     plt.scatter(t_sober, y_sober) # sober: red
+#     plt.scatter(t_high, y_high) # high: blue
+#
+#     # Plot line of best fit
+#     x = np.array(t_sober)
+#     y = np.array(y_sober)
+#     m, b = np.polyfit(x, y, 1)
+#
+#     plt.plot(x, y, 'o')
+#     plt.plot(x, m*x + b)
+#
+#     x_high = np.array(t_high)
+#     yh = np.array(y_high)
+#     n, c = np.polyfit(x_high, yh, 1)
+#
+#     plt.plot(t_high, y_high, 'o')
+#     plt.plot(t_high, n*t_high + c)
+#
+#     # Add title and axis labels
+#     plt.title(x_name + " Based on Sobriety")
+#     plt.xlabel("Time")
+#     plt.ylabel(x_name)
+#
+#     plt.show()
+
+    # # R Squared
+    # coeffs = np.polyfit(x, y, 1)
+    # p = np.poly1d(coeffs)
+    # y_hat = p(x)
+    # y_bar = np.sum(y)/len(y)
+    # ssreg = np.sum((y_hat-y_bar)**2)
+    # sstot = np.sum((y - y_bar)**2)
+    # rsquared = ssreg / sstot
+    #
+    # print("R Squared for Plant Height Based on " + xname +": " + str(rsquared))
+
+# graph(t_sober, t_high, y_sober, y_high, x_name)
+# graph(soberDF['Placement'], highDF['Placement'], soberDF['Time'], highDF['Time'], p)
+
+</code>
+</body>
